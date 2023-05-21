@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use DB;
 
 use App\Models\Users\Subjects;
+use App\Http\Requests\RegisterRequest;
 
 class RegisterController extends Controller
 {
@@ -57,35 +58,49 @@ class RegisterController extends Controller
         return view('auth.register.register', compact('subjects'));
     }
 
-    public function registerPost(Request $request)
+    /**
+     * フォームリクエストのバリデーション設定
+     *
+     * @param  \App\Http\Requests\StorePostRequest  $request
+     * @return Illuminate\Http\Response
+     */
+
+    public function registerPost(RegisterRequest $request)
     {
+        if ($request->isMethod('post')) {
+            return back();
+        };
+
+        $validated = $request->validated();
+        $message = $request->messages();
+
         DB::beginTransaction();
-        try{
-            $old_year = $request->old_year;
-            $old_month = $request->old_month;
-            $old_day = $request->old_day;
+        try {
+            $old_year = $validated['old_year'];
+            $old_month = $validated['old_month'];
+            $old_day = $validated['old_day'];
             $data = $old_year . '-' . $old_month . '-' . $old_day;
             $birth_day = date('Y-m-d', strtotime($data));
-            $subjects = $request->subject;
+            $subjects = $validated['subject'];
 
             $user_get = User::create([
-                'over_name' => $request->over_name,
-                'under_name' => $request->under_name,
-                'over_name_kana' => $request->over_name_kana,
-                'under_name_kana' => $request->under_name_kana,
-                'mail_address' => $request->mail_address,
-                'sex' => $request->sex,
+                'over_name' => $validated['over_name'],
+                'under_name' => $validated['under_name'],
+                'over_name_kana' => $validated['over_name_kana'],
+                'under_name_kana' => $validated['under_name_kana'],
+                'mail_address' => $validated['mail_address'],
+                'sex' => $validated['sex'],
                 'birth_day' => $birth_day,
-                'role' => $request->role,
-                'password' => bcrypt($request->password)
+                'role' => $validated['role'],
+                'password' => bcrypt($validated['password'])
             ]);
             $user = User::findOrFail($user_get->id);
             $user->subjects()->attach($subjects);
             DB::commit();
             return view('auth.login.login');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->route('loginView');
+            return redirect()->route('loginView', compact('message'));
         }
     }
 }
