@@ -17,7 +17,7 @@ class CreatePostCommentsTable extends Migration
             $table->integer('id')->autoIncrement()->comment('id');
             $table->integer('post_id')->comment('投稿のid');
             $table->integer('user_id')->comment('投稿した人のid');
-            $table->string('comment')->comment('コメント');
+            $table->text('comment')->comment('コメント');
             $table->timestamp('created_at')->default(DB::raw('current_timestamp on update current_timestamp'))->comment('登録日時');
         });
     }
