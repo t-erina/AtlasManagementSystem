@@ -16,6 +16,13 @@
         </div>
 
         <div class="contributor d-flex">
+          @if ($errors->any())
+          <ul>
+            @foreach ($errors->all() as $message)
+            <li>{{ $message }}</li>
+            @endforeach
+          </ul>
+          @endif
           <p>
             <span>{{ $post->user->over_name }}</span>
             <span>{{ $post->user->under_name }}</span>
