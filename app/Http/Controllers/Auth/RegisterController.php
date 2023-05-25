@@ -67,32 +67,26 @@ class RegisterController extends Controller
 
     public function registerPost(RegisterRequest $request)
     {
-        if ($request->isMethod('post')) {
-            return back();
-        };
-
-        $validated = $request->validated();
-        $message = $request->messages();
-
         DB::beginTransaction();
         try {
-            $old_year = $validated['old_year'];
-            $old_month = $validated['old_month'];
-            $old_day = $validated['old_day'];
+            $old_year = $request->old_year;
+            $old_month = $request->old_month;
+            $old_day = $request->old_day;
+
             $data = $old_year . '-' . $old_month . '-' . $old_day;
             $birth_day = date('Y-m-d', strtotime($data));
-            $subjects = $validated['subject'];
+            $subjects = $request->subject;
 
             $user_get = User::create([
-                'over_name' => $validated['over_name'],
-                'under_name' => $validated['under_name'],
-                'over_name_kana' => $validated['over_name_kana'],
-                'under_name_kana' => $validated['under_name_kana'],
-                'mail_address' => $validated['mail_address'],
-                'sex' => $validated['sex'],
+                'over_name' => $request->over_name,
+                'under_name' => $request->under_name,
+                'over_name_kana' => $request->over_name_kana,
+                'under_name_kana' => $request->under_name_kana,
+                'mail_address' => $request->mail_address,
+                'sex' => $request->sex,
                 'birth_day' => $birth_day,
-                'role' => $validated['role'],
-                'password' => bcrypt($validated['password'])
+                'role' => $request->role,
+                'password' => bcrypt($request->password)
             ]);
             $user = User::findOrFail($user_get->id);
             $user->subjects()->attach($subjects);
@@ -100,7 +94,7 @@ class RegisterController extends Controller
             return view('auth.login.login');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->route('loginView', compact('message'));
+            return redirect()->route('loginView');
         }
     }
 }
