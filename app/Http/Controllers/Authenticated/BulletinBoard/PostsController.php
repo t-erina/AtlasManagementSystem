@@ -71,11 +71,18 @@ class PostsController extends Controller
         ];
 
         $messages = [
-            'post_title.max' => '100文字以内で入力してください',
-            'post_body.max' => '5000文字以内で入力してください',
+            'post_title.required' => ':attributeは入力必須項目です',
+            'post_title.max' => ':attributeは100文字以内で入力してください',
+            'post_body.required' => ':attributeは入力必須項目です',
+            'post_body.max' => ':attributeは5000文字以内で入力してください',
         ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
+        $attributes = [
+            'post_title' => 'タイトル',
+            'post_body' => '投稿内容'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages, $attributes);
 
         if ($validator->fails()) {
             return back()
@@ -105,6 +112,18 @@ class PostsController extends Controller
 
     public function commentCreate(Request $request)
     {
+        //コメントのバリデーション
+        $request->validate(
+            [
+                'comment' => 'required|max:2500|string',
+            ],
+            [
+                'comment.required' => '入力必須項目です',
+                'comment.max' => '最大文字数は2500文字です',
+                'comment.string' => '文字列を入力してください'
+            ]
+        );
+
         PostComment::create([
             'post_id' => $request->post_id,
             'user_id' => Auth::id(),

@@ -12,7 +12,7 @@
         <div class="d-flex post_status">
           <div class="mr-5">
             <!-- コメント -->
-            <i class="fa fa-comment"></i><span class="comment_count"></span>
+            <i class="fa fa-comment"></i><span class="comment_count">{{ $post->postComments->count() }}</span>
           </div>
           <div>
             <!-- いいね -->
