@@ -12,6 +12,7 @@ use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
 use Auth;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Validator;
 
 class PostsController extends Controller
@@ -19,7 +20,7 @@ class PostsController extends Controller
     public function show(Request $request)
     {
         $posts = Post::with('user', 'postComments')->get();
-        $categories = MainCategory::get();
+        $categories = MainCategory::with('subCategories')->get();
         $like = new Like;
         $post_comment = new Post;
         if (!empty($request->keyword)) {
@@ -48,7 +49,7 @@ class PostsController extends Controller
 
     public function postInput()
     {
-        $main_categories = MainCategory::get();
+        $main_categories = MainCategory::with('subCategories')->get();
         return view('authenticated.bulletinboard.post_create', compact('main_categories'));
     }
 
@@ -90,8 +91,6 @@ class PostsController extends Controller
                 ->withInput();
         }
 
-        $validated = $validator->validated();
-
         Post::where('id', $request->post_id)->update([
             'post_title' => $request->post_title,
             'post' => $request->post_body,
@@ -104,9 +103,48 @@ class PostsController extends Controller
         Post::findOrFail($id)->delete();
         return redirect()->route('post.show');
     }
+
     public function mainCategoryCreate(Request $request)
     {
+        //バリデーション
+        $request->validate(
+            [
+                'main_category_name' => 'required|max:100|string|unique:main_categories,main_category',
+            ],
+            [
+                'main_category_name.required' => '入力必須項目です',
+                'main_category_name.max' => '最大文字数は100文字です',
+                'main_category_name.string' => '文字列を入力してください',
+                'main_category_name.unique' => '既に存在します'
+            ]
+        );
+
         MainCategory::create(['main_category' => $request->main_category_name]);
+        return redirect()->route('post.input');
+    }
+
+    public function subCategoryCreate(Request $request)
+    {
+        //バリデーション
+        $request->validate(
+            [
+                'main_category_id' => 'required|exists:main_categories,id',
+                'sub_category_name' => 'required|max:100|string|unique:sub_categories,sub_category'
+            ],
+            [
+                'main_category_id.required' => 'メインカテゴリーを選択してください',
+                'main_category_id.exists' => '存在しないカテゴリーです',
+                'sub_category_name.required' => 'サブカテゴリーは入力必須項目です',
+                'sub_category_name.max' => '最大文字数は100文字です',
+                'sub_category_name.string' => '文字列を入力してください',
+                'sub_category_name.unique' => 'このサブカテゴリーは既に存在します'
+            ],
+        );
+        
+        SubCategory::create([
+            'main_category_id' => $request->main_category_id,
+            'sub_category' => $request->sub_category_name
+        ]);
         return redirect()->route('post.input');
     }
 
