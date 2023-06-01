@@ -10,7 +10,7 @@
       <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
       <div class="post_bottom_area d-flex">
         <!-- カテゴリー -->
-        <input type="submit" name="category_posts" class="category_btn" value="{{ $post->subCategories->first()->sub_category }}" form="postSearchRequest">
+        <input type="submit" name="category_word" class="category_btn" value="{{ $post->subCategories->first()->sub_category }}" form="postSearchRequest">
         <div class="d-flex post_status">
           <div class="mr-5">
             <!-- コメント -->
@@ -42,7 +42,7 @@
         @foreach($categories as $category)
         <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
         @foreach($category->subCategories as $subCategory)
-        <input type="submit" name="category_posts" class="category_btn" value="{{ $subCategory->sub_category }}" form="postSearchRequest">
+        <input type="submit" name="category_word" class="category_btn" value="{{ $subCategory->sub_category }}" form="postSearchRequest">
         @endforeach
         @endforeach
       </ul>
