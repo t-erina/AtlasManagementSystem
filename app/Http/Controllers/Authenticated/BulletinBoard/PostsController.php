@@ -60,6 +60,9 @@ class PostsController extends Controller
             'post_title' => $request->post_title,
             'post' => $request->post_body
         ]);
+        $sub_categories = $request->post_category_id;
+        $category = Post::findOrFail($post->id);
+        $category->subCategories()->attach($sub_categories);
         return redirect()->route('post.show');
     }
 
@@ -112,7 +115,7 @@ class PostsController extends Controller
                 'main_category_name' => 'required|max:100|string|unique:main_categories,main_category',
             ],
             [
-                'main_category_name.required' => '入力必須項目です',
+                'main_category_name.required' => '必須項目です',
                 'main_category_name.max' => '最大文字数は100文字です',
                 'main_category_name.string' => '文字列を入力してください',
                 'main_category_name.unique' => '既に存在します'
@@ -134,13 +137,13 @@ class PostsController extends Controller
             [
                 'main_category_id.required' => 'メインカテゴリーを選択してください',
                 'main_category_id.exists' => '存在しないカテゴリーです',
-                'sub_category_name.required' => 'サブカテゴリーは入力必須項目です',
+                'sub_category_name.required' => 'サブカテゴリーは必須項目です',
                 'sub_category_name.max' => '最大文字数は100文字です',
                 'sub_category_name.string' => '文字列を入力してください',
                 'sub_category_name.unique' => 'このサブカテゴリーは既に存在します'
             ],
         );
-        
+
         SubCategory::create([
             'main_category_id' => $request->main_category_id,
             'sub_category' => $request->sub_category_name
@@ -156,7 +159,7 @@ class PostsController extends Controller
                 'comment' => 'required|max:2500|string',
             ],
             [
-                'comment.required' => '入力必須項目です',
+                'comment.required' => '必須項目です',
                 'comment.max' => '最大文字数は2500文字です',
                 'comment.string' => '文字列を入力してください'
             ]

@@ -10,9 +10,9 @@
         <optgroup label="{{ $main_category->main_category }}"></optgroup>
         <!-- サブカテゴリー表示 -->
         @foreach($main_category->subCategories as $subCategories)
-        <option name="sub_category_id" value="{{ $subCategories->id }}">{{ $subCategories->sub_category }}</option>
-        @endforeach  
-      </optgroup>
+        <option value="{{ $subCategories->id }}">{{ $subCategories->sub_category }}</option>
+        @endforeach
+        </optgroup>
         @endforeach
       </select>
     </div>
@@ -58,11 +58,6 @@
       </div>
       <form action="{{ route('sub.category.create') }}" method="post" id="subCategoryRequest">{{ csrf_field() }}</form>
     </div>
-    @if ($errors->any())
-    @foreach($errors->all() as $error)
-    <li>{{ $error }}</li>
-    @endforeach
-    @endif
   </div>
   @endcan
 </div>
