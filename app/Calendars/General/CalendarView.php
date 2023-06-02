@@ -40,7 +40,7 @@ class CalendarView{
         $startDay = $this->carbon->copy()->format("Y-m-01");
         $toDay = $this->carbon->copy()->format("Y-m-d");
 
-        if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
+        if($startDay <= $day->everyDay() && $toDay > $day->everyDay()){
           //クラス名　過去の日付
           $html[] = '<td class="calendar-td past-day">';
         }else{
@@ -59,18 +59,18 @@ class CalendarView{
           }else if($reservePart == 3){
             $reservePart = "リモ3部";
           }
-          if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
+          if($startDay <= $day->everyDay() && $toDay > $day->everyDay()){
             //過去の日付
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">'.$reservePart.'</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }else{
             //今日以降の日付
-            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
+            $html[] = '<button type="submit" class="js_delete_date btn btn-danger p-0 w-75" name="delete_date[]" style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
         }else{
           //予約なし
-          if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
+          if ($startDay <= $day->everyDay() && $toDay > $day->everyDay()) {
             //過去の日付
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
@@ -87,20 +87,24 @@ class CalendarView{
     $html[] = '</tbody>';
     $html[] = '</table>';
     $html[] = '</div>';
-    //モーダル
-    // $html[] = '<div class="modal__bg"></div>';
-    // $html[] = '<div class="modal__content">';
-    // $html[] = '<div><span>予約日：</span><span></span></div>';
-    // $html[] = '<div><span>時間：</span><span></span></div>';
-    // $html[] = '<span>上記の予約をキャンセルしてもよろしいですか？</span>';
-    // $html[] = '<div>';
-    // $html[] = '<input type="submit" class="btn btn-primary" value="閉じる" form="">';
-    // $html[] = '<input type="submit" class="btn btn-danger" value="キャンセル" form="">';
-    // $html[] = '</div>';
+
+    //モーダル =================================
+    $html[] = '<div class="modal">';
+    $html[] = '<div class="modal__bg"></div>';
+    $html[] = '<div class="modal__content">';
+    $html[] = '<div><span>予約日：</span><label class="modal_date"></label></div>';
+    $html[] = '<div><span>時間：</span><label class="modal_time"></label></div>';
+    $html[] = '<span>上記の予約をキャンセルしてもよろしいですか？</span>';
+    $html[] = '<div>';
+    $html[] = '<input type="submit" class="js_modal_btn btn btn-primary" value="閉じる" form="">';
+    $html[] = '<input type="submit" class="js_modal_btn btn btn-danger" value="キャンセル" form="">';
+    $html[] = '</div>';
+    $html[] = '</div>';
+    $html[] = '</div>';
+    //==========================================
+
     $html[] = '<form action="/reserve/calendar" method="post" id="reserveParts">'.csrf_field().'</form>';
     $html[] = '<form action="/delete/calendar" method="post" id="deleteParts">'.csrf_field().'</form>';
-    // $html[] = '</div>';
-
     return implode('', $html);
   }
 
