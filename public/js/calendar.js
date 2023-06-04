@@ -6,9 +6,11 @@ $(function () {
     //値の取得
     var date = $(target).val();
     var time = $(target).data('time');
+    var id = $(target).data('id');
     console.log()
     $('.modal_date').text(date);
     $('.modal_time').text(time);
+    $('.delete_id').val(id);
     //オープン
     $('.modal').fadeIn(300);
   });
