@@ -40,15 +40,15 @@ class CalendarWeekDay
     //予約状況の表示
     $html[] = '<div class="text-left">';
     if ($one_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route("calendar.admin.detail", ["user_id" => $one_part->id], ["data" => $one_part->setting_reserve], ["part" => $one_part->setting_part]) . '">1部</a></p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route("calendar.admin.detail", ["id" => $one_part->id, "data" => $one_part->setting_reserve, "part" => $one_part->setting_part]) . '">1部</a></p>';
       $html[] = '<span class="day_part m-0 pt-1">' . count($one_part->users) . '</span>';
     }
     if ($two_part) {
-      $html[] = '<p class="day_part m-0 pt-1">2部</p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route("calendar.admin.detail", ["id" => $two_part->id, "data" => $two_part->setting_reserve, "part" => $two_part->setting_part]) . '">2部</a></p>';
       $html[] = '<span class="day_part m-0 pt-1">' . count($two_part->users) . '</span>';
     }
     if ($three_part) {
-      $html[] = '<p class="day_part m-0 pt-1">3部</p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route("calendar.admin.detail", ["id" => $three_part->id, "data" => $three_part->setting_reserve, "part" => $three_part->setting_part]) . '">3部</a></p>';
       $html[] = '<span class="day_part m-0 pt-1">' . count($three_part->users) . '</span>';
     }
     $html[] = '</div>';
