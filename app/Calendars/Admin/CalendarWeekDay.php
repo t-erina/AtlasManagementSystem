@@ -40,7 +40,7 @@ class CalendarWeekDay
     //予約状況の表示
     $html[] = '<div class="text-left">';
     if ($one_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route("calendar.admin.detail", [ "user_id" => $one_part->id], [ "date" => $ymd], [ "part"=> 'part'. $one_part->setting_part]) . '">1部</a></p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route("calendar.admin.detail", ["user_id" => $one_part->id], ["data" => $one_part->setting_reserve], ["part" => $one_part->setting_part]) . '">1部</a></p>';
       $html[] = '<span class="day_part m-0 pt-1">' . count($one_part->users) . '</span>';
     }
     if ($two_part) {
