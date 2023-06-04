@@ -4,6 +4,7 @@ namespace App\Calendars\Admin;
 
 use Carbon\Carbon;
 use App\Models\Calendars\ReserveSettings;
+use Illuminate\Support\Facades\Auth;
 
 class CalendarWeekDay
 {
@@ -39,7 +40,7 @@ class CalendarWeekDay
     //予約状況の表示
     $html[] = '<div class="text-left">';
     if ($one_part) {
-      $html[] = '<p class="day_part m-0 pt-1">1部</p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route("calendar.admin.detail", [ "user_id" => $one_part->id], [ "date" => $ymd], [ "part"=> 'part'. $one_part->setting_part]) . '">1部</a></p>';
       $html[] = '<span class="day_part m-0 pt-1">' . count($one_part->users) . '</span>';
     }
     if ($two_part) {
@@ -55,7 +56,6 @@ class CalendarWeekDay
     return implode("", $html);
   }
 
-
   function onePartFrame($day)
   {
     $one_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '1')->first();
@@ -66,6 +66,7 @@ class CalendarWeekDay
     }
     return $one_part_frame;
   }
+
   function twoPartFrame($day)
   {
     $two_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '2')->first();
@@ -76,6 +77,7 @@ class CalendarWeekDay
     }
     return $two_part_frame;
   }
+
   function threePartFrame($day)
   {
     $three_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '3')->first();
