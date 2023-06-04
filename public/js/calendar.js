@@ -1,6 +1,15 @@
 //オープン
 $(function () {
-  $('.js_delete_date').on('click', function () {
+  $('.js_delete_date').on('click', function (e) {
+    //押されたボタンを取得
+    var target = $(e.target);
+    //値の取得
+    var date = $(target).val();
+    var time = $(target).data('time');
+    console.log()
+    $('.modal_date').text(date);
+    $('.modal_time').text(time);
+    //オープン
     $('.modal').fadeIn(300);
   });
 });
