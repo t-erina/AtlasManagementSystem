@@ -163,7 +163,7 @@ class PostsController extends Controller
                 'comment' => 'required|max:2500|string',
             ],
             [
-                'comment.required' => '必須項目です',
+                'comment.required' => 'コメントを記入してください',
                 'comment.max' => '最大文字数は2500文字です',
                 'comment.string' => '文字列を入力してください'
             ]
