@@ -63,4 +63,14 @@ $(function () {
     return false;
   });
 
+  $('.accordion_btn').on('click', function (e) {
+    e.stopPropagation();
+    var trigger = $(this);
+    var target = $(trigger).next();
+    var arrow = $(trigger).find('.arrow_inner');
+
+    target.slideToggle();
+    arrow.toggleClass('is_active');
+  })
+
 });

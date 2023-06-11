@@ -149,7 +149,7 @@ li {
 }
 
 .modal_input,
-.modal-inner-body textarea{
+.modal-inner-body textarea {
   outline: none;
   border: solid 1px #999;
   border-radius: 3px;
@@ -279,7 +279,8 @@ li {
   cursor: pointer;
 }
 
-.post_btn.blue {
+.post_btn.blue,
+.search_btn.blue {
   background-color: #03AAD2;
 }
 
@@ -293,7 +294,8 @@ li {
   margin-left: 2px;
 }
 
-.accordion_btn {
+.accordion_btn,
+.accordion_btn_search {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -325,6 +327,7 @@ li {
 }
 
 .sub_category_wrapper {
+  display: none;
   padding: 0 40px 20px 20px;
 }
 
@@ -385,7 +388,7 @@ li {
   border-radius: 10px;
 }
 
-.comment_area ul{
+.comment_area ul {
   margin-bottom: 0;
 }
 
@@ -411,7 +414,7 @@ li {
   font-size: 12px;
 }
 
-.comment_btn_wrapper{
+.comment_btn_wrapper {
   text-align: right;
   padding-top: 10px;
 }
@@ -434,7 +437,7 @@ li {
 }
 
 .add_category_sub select,
-.post_create_contents select{
+.post_create_contents select {
   border: solid 1px #999;
   border-radius: 3px;
   outline: none;
@@ -450,13 +453,16 @@ li {
 /* ユーザー検索 */
 .reserve_users_area {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  width: 800px;
+  max-width: 75%;
   margin: 10px auto;
-  height: 80vh;
+  max-height: 80vh;
   overflow: scroll;
   padding: 10px;
   border-radius: 5px;
+  overflow-x: auto;
+  overflow-y: scroll;
 }
 
 .reserve_users_area span {
@@ -474,19 +480,19 @@ li {
   line-height: 1.7;
 }
 
+.search_area {
+  max-width: 25%;
+  margin: 0 auto;
+}
+
 .search_conditions span {
   cursor: pointer;
 }
 
 .search_conditions_inner {
   display: none;
-  background: #FFF;
-}
-
-.subject_edit_btn {
-  font-size: 12px;
-  color: #0000FF;
-  cursor: pointer;
+  padding-bottom: 20px;
+  margin: 10px 0;
 }
 
 .subject_inner {
@@ -497,17 +503,116 @@ li {
   color: #999;
 }
 
-.card_item_username{
-  color:#03AAD2;
+.card_item_username {
+  color: #03AAD2;
   transition: all .3s;
 }
 
-.card_item_username:hover{
+.card_item_username:hover {
   text-decoration: none;
-  color:#03AAD2;
+  color: #03AAD2;
   opacity: .8;
 }
 
+.search_wrapper {
+  margin: 0 20px;
+}
+
+.reset_wrapper {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.search_user_label {
+  display: block;
+  color: #2F5576;
+  padding-bottom: 10px;
+  margin-bottom: 0;
+}
+
+.search_radio {
+  margin: -10px;
+}
+
+.search_radio_btn {
+  padding-left: 10px;
+}
+
+.search_user_input {
+  display: block;
+  background: #E0E5E9;
+  border: none;
+  border-radius: 5px;
+  line-height: 2.5;
+  flex-basis: 70%;
+  padding: 0 5px;
+}
+
+input.search_user_input {
+  width: 100%;
+}
+
+select.search_user_input {
+  height: 30px;
+}
+
+.search_btn {
+  border: none;
+}
+
+.reset_btn {
+  color: #03AAD2;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.reset_btn:hover {
+  opacity: .8;
+}
+
+/* プロフィール詳細 */
+.subject_edit_btn {
+  display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #03AAD2;
+  transition: all .3s;
+  cursor: pointer;
+  border: solid 1px #ccc;
+}
+
+.subject_edit_inner {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  margin-left: 5px;
+  border: solid 1px #ccc;
+}
+
+.subject_edit_inner.is_active {
+  transform: rotate(-180deg);
+}
+
+.subject_edit_inner::after {
+  content: "";
+  display: block;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  border-top: solid 2px #03AAD2;
+  border-right: solid 2px #03AAD2;
+  transform: rotate(135deg);
+}
+
+.subject_edit_btn:hover {
+  opacity: .8;
+}
 
 /* common layout */
 .btn_big {
@@ -526,4 +631,9 @@ li {
   color: #fff;
   opacity: .8;
   text-decoration: none;
+}
+
+input,
+select {
+  outline: none;
 }
