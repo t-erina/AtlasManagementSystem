@@ -70,21 +70,21 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'over_name.max' => '10文字以内で入力してください',
-            'under_name.max' => '10文字以内で入力してください',
-            'over_name_kana.max' => '30文字以内で入力してください',
-            'over_name_kana.regex' => '全角カタカナで入力してください',
-            'under_name_kana.max' => '30文字以内で入力してください',
-            'under_name_kana.regex' => '全角カタカナで入力してください',
+            'over_name.max' => ':attributeは10文字以内で入力してください',
+            'under_name.max' => ':attributeは10文字以内で入力してください',
+            'over_name_kana.max' => ':attributeは30文字以内で入力してください',
+            'over_name_kana.regex' => ':attributeは全角カタカナで入力してください',
+            'under_name_kana.max' => ':attributeは30文字以内で入力してください',
+            'under_name_kana.regex' => ':attributeは全角カタカナで入力してください',
             'mail_address.unique' => 'この:attributeは既に登録されています',
-            'mail_address.max' => '100文字以内で入力してください',
+            'mail_address.max' => ':attributeは100文字以内で入力してください',
             'mail_address.email' => ':attributeの形式で入力してください',
-            'sex.in:1,2,3' => '選択項目から指定してください',
-            'birth_day.after_or_equal' => '2000年1月1日～今日までの範囲で指定してください',
-            'birth_day.before_or_equal' => '2000年1月1日～今日までの範囲で指定してください',
+            'sex.in:1,2,3' => ':attributeは選択項目から指定してください',
+            'birth_day.after_or_equal' => ':attributeは2000年1月1日～今日までの範囲で指定してください',
+            'birth_day.before_or_equal' => ':attributeは2000年1月1日～今日までの範囲で指定してください',
             'birth_day.date' => '正しい日付が選択されていません',
-            'role.in:1,2,3,4' => '選択項目から指定してください',
-            'password.between' => '8文字以上30文字以内で入力してください',
+            'role.in:1,2,3,4' => ':attributeは選択項目から指定してください',
+            'password.between' => ':attributeは8文字以上30文字以内で入力してください',
             'password.confirmed' => ':attributeが一致しません'
         ];
     }

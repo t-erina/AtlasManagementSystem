@@ -26,13 +26,13 @@ class CalendarView
     $html[] = '<table class="table">';
     $html[] = '<thead>';
     $html[] = '<tr>';
-    $html[] = '<th>月</th>';
-    $html[] = '<th>火</th>';
-    $html[] = '<th>水</th>';
-    $html[] = '<th>木</th>';
-    $html[] = '<th>金</th>';
-    $html[] = '<th>土</th>';
-    $html[] = '<th>日</th>';
+    $html[] = '<th class="border">月</th>';
+    $html[] = '<th class="border">火</th>';
+    $html[] = '<th class="border">水</th>';
+    $html[] = '<th class="border">木</th>';
+    $html[] = '<th class="border">金</th>';
+    $html[] = '<th class="border day-sat">土</th>';
+    $html[] = '<th class="border day-sun">日</th>';
     $html[] = '</tr>';
     $html[] = '</thead>';
     $html[] = '<tbody>';
@@ -47,10 +47,10 @@ class CalendarView
 
         if ($startDay <= $day->everyDay() && $toDay > $day->everyDay()) {
           //クラス名　過去の日付
-          $html[] = '<td class="calendar-td past-day">';
+          $html[] = '<td class="calendar-td past-day border ' . $day->getClassName() . '">';
         } else {
           //クラス名　今日以降の日付
-          $html[] = '<td class="calendar-td ' . $day->getClassName() . '">';
+          $html[] = '<td class="calendar-td border ' . $day->getClassName() . '">';
         }
         $html[] = $day->render();
 
@@ -77,7 +77,7 @@ class CalendarView
           //予約なし
           if ($startDay <= $day->everyDay() && $toDay > $day->everyDay()) {
             //過去の日付
-            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
+            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px; color:#333;">受付終了</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           } else {
             //今日以降の日付
@@ -95,15 +95,16 @@ class CalendarView
 
     //モーダル =================================
     $html[] = '<div class="modal">';
-    $html[] = '<div class="modal__bg"></div>';
+    $html[] = '<div class="modal__bg">';
     $html[] = '<div class="modal__content">';
     $html[] = '<div><span>予約日：</span><label class="modal_date"></label></div>';
     $html[] = '<div><span>時間：</span><label class="modal_time"></label></div>';
     $html[] = '<span>上記の予約をキャンセルしてもよろしいですか？</span>';
-    $html[] = '<div>';
+    $html[] = '<div class="modal_btn_wrapper">';
     $html[] = '<input type="submit" class="js_modal_btn btn btn-primary" value="閉じる" form="">';
     $html[] = '<input type="submit" class="js_modal_btn btn btn-danger" value="キャンセル" form="deleteParts">';
     $html[] = '<input type="hidden" class="delete_id" name="delete_id" value="" form="deleteParts">';
+    $html[] = '</div>';
     $html[] = '</div>';
     $html[] = '</div>';
     $html[] = '</div>';

@@ -2,8 +2,10 @@
 
 @section('content')
 <div class="vh-100 border">
+  <div class="main_contents_title">
+    <span>自分のプロフィール</span>
+  </div>
   <div class="top_area w-75 m-auto pt-5">
-    <p>マイページ</p>
     <div class="user_status p-3">
       <p>名前：<span>{{ Auth::user()->over_name }}</span><span class="ml-1">{{ Auth::user()->under_name }}</span></p>
       <p>カナ：<span>{{ Auth::user()->over_name_kana }}</span><span class="ml-1">{{ Auth::user()->under_name_kana }}</span></p>

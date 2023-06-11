@@ -22,6 +22,34 @@ li {
   list-style: none;
 }
 
+/* common layout */
+.btn_big {
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  line-height: 2.5;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.btn_big:hover {
+  color: #fff;
+  opacity: .8;
+  text-decoration: none;
+}
+
+input,
+select {
+  outline: none;
+}
+
+.main_contents_title {
+  margin: 20px;
+}
+
 /* サイドバー */
 .sidebar {
   width: 220px;
@@ -31,6 +59,8 @@ li {
 }
 
 .main-container {
+  height: 100vh;
+  overflow-y: scroll;
   width: 100%;
 }
 
@@ -122,6 +152,81 @@ li {
   width: 70%;
 }
 
+.part_info {
+  margin: 0 auto;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.part_info a {
+  color: #03AAD2;
+  transition: all .3s;
+}
+
+.part_info a:hover {
+  color: #03AAD2;
+  text-decoration: none;
+  opacity: .8;
+}
+
+/* スクールレイアウト加筆 */
+.calendar_wrapper {
+  background: #ECF1F6;
+  padding: 3rem 0;
+}
+
+.calendar_container {
+  width: 75%;
+  background: #fff;
+  padding: 3rem;
+  border-radius: 10px;
+  box-shadow: 3px 3px 7px 3px rgba(0, 0, 0, .1);
+  margin: 0 auto;
+}
+
+.calendar_month {
+  font-size: 24px;
+  text-align: center;
+}
+
+.reserve_wrapper {
+  width: 75%;
+  padding: 3rem;
+  margin: 0 auto;
+}
+
+.reserve_contaier {
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 7px 3px rgba(0, 0, 0, .1);
+  margin: 0 auto;
+}
+
+.reserve_day {
+  font-size: 24px;
+}
+
+.reserve_table {
+  width: 100%;
+}
+
+.reserve_table th {
+  color: #fff;
+  font-weight: 600;
+  background: #03AAD2;
+}
+
+.table_items {
+  border-top: solid 1px #dee2e6;
+  height: 2.5rem;
+}
+
+.table_items:nth-of-type(odd) {
+  background: #E5F6FA;
+}
+
 /* モーダル */
 .modal {
   display: none;
@@ -141,11 +246,18 @@ li {
 .modal__content {
   background: #fff;
   left: 50%;
-  padding: 40px;
+  padding: 40px 15%;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 60%;
+}
+
+.modal_btn_wrapper{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .modal_input,
@@ -451,15 +563,23 @@ li {
 }
 
 /* ユーザー検索 */
+.search_content{
+  display: flex;
+  align-items: flex-start;
+}
+
 .reserve_users_area {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   max-width: 75%;
-  margin: 10px auto;
+  margin: 0 auto;
+  margin-top: -30px;
+  margin-left: -20px;
   max-height: 80vh;
   overflow: scroll;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
   overflow-x: auto;
   overflow-y: scroll;
@@ -483,6 +603,7 @@ li {
 .search_area {
   max-width: 25%;
   margin: 0 auto;
+  padding: 20px;
 }
 
 .search_conditions span {
@@ -575,13 +696,14 @@ select.search_user_input {
 
 /* プロフィール詳細 */
 .subject_edit_btn {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  width: fit-content;
   margin-top: 20px;
   margin-bottom: 10px;
   color: #03AAD2;
   transition: all .3s;
   cursor: pointer;
-  border: solid 1px #ccc;
 }
 
 .subject_edit_inner {
@@ -590,7 +712,19 @@ select.search_user_input {
   width: 20px;
   position: relative;
   margin-left: 5px;
-  border: solid 1px #ccc;
+}
+
+.subject_edit_form{
+  display: flex;
+  align-items: center;
+}
+
+.subject_edit_items{
+  margin-right: 10px;
+}
+
+.subject_edit_items label{
+  margin-bottom: 0;
 }
 
 .subject_edit_inner.is_active {
@@ -603,8 +737,8 @@ select.search_user_input {
   height: 10px;
   width: 10px;
   position: absolute;
-  top: 2px;
-  left: 4px;
+  top: 3px;
+  left: 5px;
   border-top: solid 2px #03AAD2;
   border-right: solid 2px #03AAD2;
   transform: rotate(135deg);
@@ -614,26 +748,59 @@ select.search_user_input {
   opacity: .8;
 }
 
-/* common layout */
-.btn_big {
-  display: block;
+/* ユーザー登録 */
+.form_contents{
+  margin-bottom: 10px;
+}
+
+.form_contents label{
+  font-weight: 600;
+}
+
+.username_box{
+  display: flex;
+  justify-content: space-between;
+}
+
+.username_box .form_contents{
+  width: 45%;
+}
+
+.username_box .form_contents input{
   width: 100%;
-  border-radius: 5px;
-  color: #fff;
-  font-size: 16px;
-  text-align: center;
-  line-height: 2.5;
-  cursor: pointer;
-  transition: all .3s;
 }
 
-.btn_big:hover {
-  color: #fff;
-  opacity: .8;
-  text-decoration: none;
+.radio_box{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-input,
-select {
+.radio_box label{
+  display: inline-block;
+  padding-left: 5px;
+  margin-bottom: 0;
+}
+
+.old_box{
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+}
+
+.old_box label{
+  margin-bottom: 0;
+}
+
+.old_year,
+.old_month,
+.old_day{
+  width: 25%;
+  border: none;
   outline: none;
+  border-bottom: solid 1px #007bff;
+}
+
+.subject_checkbox{
+  font-size: 13px;
 }
